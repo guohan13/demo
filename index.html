@@ -76,7 +76,7 @@ document.addEventListener('mouseout',e=>{if(!e.relatedTarget)idle()});
 // blink (unchanged)
 let blinkStart=-1;
 const RM=matchMedia('(prefers-reduced-motion: reduce)'), Q=location.search;
-let spinStart=-1, spinDir=1, nextSpin=performance.now()+(Q.includes('spinsoon')?600:4000);
+let spinStart=-1, spinDir=1, nextSpin=performance.now()+(Q.includes('spinsoon')?600:10000);
 window.__spin=()=>{spinStart=performance.now();spinDir=tYaw<0?-1:1};
 const SP={dur:1250,crouch:130,take:130,land:900};
 function eo(x){return 1-Math.pow(1-x,3)} function eio(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
@@ -96,7 +96,7 @@ let last=performance.now(),fz=0,vf=0;const t0=last;
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
  // spring (slight lag + soft settle)
  const k=55,c=13; vy+=((tYaw-yaw)*k-vy*c)*dt; yaw+=vy*dt; vp+=((tPitch-pitch)*k-vp*c)*dt; pitch+=vp*dt;
- if(!RM.matches&&!Q.includes('nospin')&&spinStart<0&&now>=nextSpin){window.__spin();nextSpin=now+4000}
+ if(!RM.matches&&!Q.includes('nospin')&&spinStart<0&&now>=nextSpin){window.__spin();nextSpin=now+10000}
  const J=jumpState(now);
  const tf=(!J&&onPage&&now-lastMove>700)?1:0; vf+=((tf-fz)*(J?260:170)-vf*17)*dt; fz+=vf*dt; const fc=Math.max(0,fz); const Y=yaw+(J?spinDir*360*J.sp:0);
  const sY=Math.sin(Y*D), cY=Math.cos(Y*D);
